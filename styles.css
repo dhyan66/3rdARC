@@ -120,6 +120,18 @@ main {
   overflow: hidden;
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("logo.JPG");
+  background-repeat: no-repeat;
+  background-position: center 55%;
+  background-size: min(420px, 60vw);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
 .hero-bg {
   position: absolute;
   inset: 20% 0 auto;
