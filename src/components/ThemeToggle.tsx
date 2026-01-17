@@ -14,13 +14,11 @@ function getPreferredTheme() {
 }
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">(() => getPreferredTheme());
 
   useEffect(() => {
-    const initial = getPreferredTheme();
-    setTheme(initial);
-    document.documentElement.dataset.theme = initial;
-  }, []);
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   const toggle = () => {
     const next = theme === "light" ? "dark" : "light";
