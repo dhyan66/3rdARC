@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f9f6f1;
+  --foreground: #111111;
+  --muted: #6a625a;
+  --accent: #c09b6a;
+  --card: #ffffff;
+  --border: #ded7ce;
+  --ring: #8c8278;
+  --surface: #f1ece5;
+  --shadow: 0 24px 60px -40px rgba(17, 17, 17, 0.45);
+}
+
+[data-theme="dark"] {
+  --background: #0f0d0b;
+  --foreground: #f3f0eb;
+  --muted: #b2a9a0;
+  --accent: #caa27a;
+  --card: #1a1511;
+  --border: #2a221c;
+  --ring: #6b5d52;
+  --surface: #15110d;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(192, 155, 106, 0.15), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(17, 17, 17, 0.12), transparent 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(241, 236, 229, 0.4));
+  pointer-events: none;
+}
+
+::selection {
+  background: rgba(192, 155, 106, 0.35);
+}
