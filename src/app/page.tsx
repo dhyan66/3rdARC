@@ -1,5 +1,4 @@
 import Link from "next/link";
-import HeroRotator from "@/components/HeroRotator";
 import GalleryCard from "@/components/GalleryCard";
 import NewsletterForm from "@/components/NewsletterForm";
 import WorkshopCard from "@/components/WorkshopCard";
@@ -13,40 +12,43 @@ export default function Home() {
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-20">
-      <section className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        <div className="space-y-8">
-          <p className="text-xs uppercase tracking-[0.4em] text-muted">
-            Photography studio · Editorial narratives
+      <section
+        className="relative min-h-[70vh] overflow-hidden rounded-[32px] border border-foreground/10 bg-foreground text-background"
+        style={{
+          backgroundImage:
+            "linear-gradient(120deg, rgba(8, 16, 12, 0.75), rgba(8, 16, 12, 0.2)), url('/images/founders-hero.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(120,180,120,0.35),transparent_55%)]" />
+        <div className="relative flex min-h-[70vh] flex-col justify-end gap-6 px-6 pb-10 pt-16 sm:px-10 lg:px-12">
+          <p className="text-xs uppercase tracking-[0.4em] text-background/70">
+            3rd Arc Productions - Founders
           </p>
-          <h1 className="font-serif text-4xl text-foreground sm:text-5xl lg:text-6xl">
-            Arc Gallery Studio
+          <h1 className="max-w-2xl font-serif text-4xl text-background sm:text-5xl lg:text-6xl">
+            Stories built in the wild, shaped in the studio.
           </h1>
-          <p className="max-w-xl text-lg text-muted">
-            A portrait and landscape practice shaped by quiet light, tactile
-            compositions, and intentional pacing. Based between Berlin and the
-            Atlantic coast.
+          <p className="max-w-xl text-base text-background/80 sm:text-lg">
+            The founding team documents the spaces between adventure and
+            atmosphere. We craft cinematic imagery rooted in place, process, and
+            people.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
               href="/galleries"
-              className="rounded-full border border-border/80 px-6 py-3 text-xs uppercase tracking-[0.2em] text-foreground transition hover:border-accent hover:text-accent"
+              className="rounded-full border border-background/60 px-6 py-3 text-xs uppercase tracking-[0.2em] text-background transition hover:border-accent hover:text-accent"
             >
               View galleries
             </Link>
             <Link
               href="/workshops"
-              className="rounded-full border border-transparent bg-foreground px-6 py-3 text-xs uppercase tracking-[0.2em] text-background transition hover:bg-foreground/80"
+              className="rounded-full border border-transparent bg-background px-6 py-3 text-xs uppercase tracking-[0.2em] text-foreground transition hover:bg-background/80"
             >
               Workshops
             </Link>
           </div>
         </div>
-        <HeroRotator
-          images={featuredGalleries.map((gallery) => ({
-            src: gallery.cover,
-            alt: gallery.title,
-          }))}
-        />
       </section>
 
       <section className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
