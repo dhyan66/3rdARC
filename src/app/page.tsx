@@ -11,9 +11,9 @@ export default function Home() {
   const upcomingWorkshops = workshops.slice(0, 2);
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-20">
+    <div className="flex flex-col gap-20">
       <section
-        className="relative min-h-[70vh] overflow-hidden rounded-[32px] border border-foreground/10 bg-foreground text-background"
+        className="relative min-h-[70vh] w-full overflow-hidden bg-foreground text-background"
         style={{
           backgroundImage:
             "linear-gradient(120deg, rgba(8, 16, 12, 0.75), rgba(8, 16, 12, 0.2)), url('/images/founders-hero.jpg')",
@@ -22,14 +22,14 @@ export default function Home() {
         }}
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(120,180,120,0.35),transparent_55%)]" />
-        <div className="relative flex min-h-[70vh] flex-col justify-end gap-6 px-6 pb-10 pt-16 sm:px-10 lg:px-12">
-          <p className="text-xs uppercase tracking-[0.4em] text-background/70">
+        <div className="relative mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-end gap-6 px-6 pb-10 pt-16 sm:px-10 lg:px-12">
+          <p className="text-xs uppercase tracking-[0.4em] text-background/90">
             3rd Arc Productions - Founders
           </p>
           <h1 className="max-w-2xl font-serif text-4xl text-background sm:text-5xl lg:text-6xl">
             Stories built in the wild, shaped in the studio.
           </h1>
-          <p className="max-w-xl text-base text-background/80 sm:text-lg">
+          <p className="max-w-xl text-base text-background/90 sm:text-lg">
             The founding team documents the spaces between adventure and
             atmosphere. We craft cinematic imagery rooted in place, process, and
             people.
@@ -51,7 +51,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-20 px-6 sm:px-10 lg:px-12">
+        <section className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
         <div className="space-y-4">
           <p className="text-xs uppercase tracking-[0.4em] text-muted">
             Featured gallery
@@ -74,9 +75,9 @@ export default function Home() {
             <GalleryCard key={gallery.slug} gallery={gallery} />
           ))}
         </div>
-      </section>
+        </section>
 
-      <section className="grid gap-8 rounded-3xl border border-border/70 bg-surface p-8 md:grid-cols-[1.2fr_1fr] md:items-center">
+        <section className="grid gap-8 rounded-3xl border border-border/70 bg-surface p-8 md:grid-cols-[1.2fr_1fr] md:items-center">
         <div className="space-y-4">
           <p className="text-xs uppercase tracking-[0.4em] text-muted">
             Workshops
@@ -94,9 +95,9 @@ export default function Home() {
             <WorkshopCard key={workshop.slug} workshop={workshop} />
           ))}
         </div>
-      </section>
+        </section>
 
-      <section className="grid gap-8 rounded-3xl border border-border/70 bg-card/70 p-8 md:grid-cols-[1fr_1.2fr] md:items-center">
+        <section className="grid gap-8 rounded-3xl border border-border/70 bg-card/70 p-8 md:grid-cols-[1fr_1.2fr] md:items-center">
         <div className="space-y-4">
           <p className="text-xs uppercase tracking-[0.4em] text-muted">
             Stay close
@@ -110,7 +111,8 @@ export default function Home() {
           </p>
         </div>
         <NewsletterForm />
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
