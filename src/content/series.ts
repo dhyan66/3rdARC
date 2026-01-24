@@ -1,4 +1,4 @@
-﻿export type Photo = {
+export type Photo = {
   src: string;
   alt: string;
   caption?: string;

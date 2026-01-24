@@ -1,4 +1,4 @@
-﻿export const about = {
+export const about = {
   portrait: {
     src: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=1200&q=80",
     alt: "Portrait of the photographer in soft window light"

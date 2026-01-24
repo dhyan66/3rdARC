@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import PhotoStrip from "@/src/components/PhotoStrip";
 import { site } from "@/src/content/site";
 import { seriesList } from "@/src/content/series";

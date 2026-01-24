@@ -1,4 +1,4 @@
-﻿import { site } from "@/src/content/site";
+import { site } from "@/src/content/site";
 
 export default function Footer() {
   return (

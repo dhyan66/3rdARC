@@ -1,4 +1,4 @@
-﻿export const site = {
+export const site = {
   name: "Aline Moreau",
   tagline: "Soft light, quiet landscapes, and patient portraiture.",
   contact: {

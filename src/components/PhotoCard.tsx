@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import type { Photo } from "@/src/content/series";
 
 const widthMap: Record<NonNullable<Photo["width"]>, string> = {

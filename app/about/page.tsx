@@ -1,11 +1,11 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import SectionBlock from "@/src/components/SectionBlock";
 import { about } from "@/src/content/about";
 import { site } from "@/src/content/site";
 
 export const metadata: Metadata = {
-  title: `About — ${site.name}`,
+  title: `About � ${site.name}`,
   description: about.sections[0]?.body[0] ?? site.tagline
 };
 

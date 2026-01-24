@@ -1,4 +1,4 @@
-﻿import "@/styles/globals.css";
+import "@/styles/globals.css";
 import { Fraunces, Manrope } from "next/font/google";
 import type { Metadata } from "next";
 import Header from "@/src/components/Header";

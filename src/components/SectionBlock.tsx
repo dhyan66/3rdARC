@@ -1,4 +1,4 @@
-﻿export default function SectionBlock({
+export default function SectionBlock({
   title,
   body
 }: {

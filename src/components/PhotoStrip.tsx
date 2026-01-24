@@ -1,4 +1,4 @@
-﻿import type { Photo } from "@/src/content/series";
+import type { Photo } from "@/src/content/series";
 import PhotoCard from "@/src/components/PhotoCard";
 
 export default function PhotoStrip({ photos }: { photos: Photo[] }) {
