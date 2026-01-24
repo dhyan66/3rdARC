@@ -84,12 +84,10 @@ const HoverExpand_001 = ({
   // Responsive configuration based on breakpoint
   const config = {
     mobile: {
-      layout: "horizontal" as const,
+      layout: "grid" as const,
       numVisible: Math.min(6, images.length),
-      expandedPercent: 60,
-      collapsedPercent: 20,
-      height: "min(20rem, 45vh)",
-      gap: "gap-2",
+      height: "min(10rem, 24vh)",
+      gap: "gap-3",
       padding: "px-0",
     },
     smallTablet: {
@@ -122,7 +120,56 @@ const HoverExpand_001 = ({
     },
   }[breakpoint];
 
-  // Horizontal layout for mobile, tablets and desktop
+  // Mobile: Grid layout (3 columns)
+  if (config.layout === "grid") {
+    return (
+      <motion.div
+        initial={{ opacity: 0, translateY: 20 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ duration: 0.25 }}
+        className={cn("relative w-full", config.padding, className)}
+      >
+        <div className={cn("grid grid-cols-3 w-full", config.gap)}>
+          {images.slice(0, config.numVisible).map((image, index) => {
+            const isActive = activeImage === index;
+            return (
+              <motion.div
+                key={index}
+                className={cn(
+                  "relative overflow-hidden rounded-2xl cursor-pointer",
+                  isActive ? "z-10" : "z-0"
+                )}
+                initial={{ opacity: 0, translateY: 10 }}
+                animate={{ opacity: 1, translateY: 0, scale: isActive ? 1.03 : 1 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                style={{ height: config.height, willChange: "transform" }}
+                onClick={() => setActiveImage(index)}
+                onTouchStart={() => setActiveImage(index)}
+              >
+                <img
+                  src={image.src}
+                  className="size-full object-cover"
+                  alt={image.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                {isActive && (
+                  <div className="absolute bottom-2 left-2 right-2">
+                    <p className="text-[0.6875rem] leading-snug text-white/90 font-medium">
+                      {image.code}
+                    </p>
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </motion.div>
+    );
+  }
+
+  // Horizontal layout for tablets and desktop
   return (
     <motion.div
       initial={{ opacity: 0, translateY: 20 }}
