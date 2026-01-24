@@ -84,9 +84,12 @@ const HoverExpand_001 = ({
   // Responsive configuration based on breakpoint
   const config = {
     mobile: {
-      layout: "list" as const,
-      numVisible: images.length,
-      height: "min(20rem, 40vh)",
+      layout: "horizontal" as const,
+      numVisible: Math.min(6, images.length),
+      expandedPercent: 60,
+      collapsedPercent: 20,
+      height: "min(20rem, 45vh)",
+      gap: "gap-2",
       padding: "px-0",
     },
     smallTablet: {
@@ -119,45 +122,7 @@ const HoverExpand_001 = ({
     },
   }[breakpoint];
 
-  // Mobile: Vertical list layout
-  if (config.layout === "list") {
-    return (
-      <motion.div
-        initial={{ opacity: 0, translateY: 20 }}
-        animate={{ opacity: 1, translateY: 0 }}
-        transition={{ duration: 0.25 }}
-        className={cn("relative w-full", config.padding, className)}
-      >
-        <div className="flex flex-col gap-4 w-full">
-          {images.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, translateY: 10 }}
-              animate={{ opacity: 1, translateY: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="relative w-full overflow-hidden rounded-2xl"
-              style={{ height: config.height }}
-              onClick={() => setActiveImage(index)}
-            >
-              <img
-                src={image.src}
-                className="size-full object-cover"
-                alt={image.alt}
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="text-sm text-white/90 font-medium">{image.code}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    );
-  }
-
-  // Horizontal layout for tablets and desktop
+  // Horizontal layout for mobile, tablets and desktop
   return (
     <motion.div
       initial={{ opacity: 0, translateY: 20 }}
@@ -171,7 +136,14 @@ const HoverExpand_001 = ({
         transition={{ duration: 0.3 }}
         className={cn("w-full mx-auto", "maxWidth" in config ? config.maxWidth : "")}
       >
-        <div className={cn("flex w-full items-center justify-center", config.gap)}>
+        <div
+          className={cn(
+            "flex w-full items-center",
+            breakpoint === "mobile" ? "justify-start overflow-x-auto hide-scrollbar" : "justify-center",
+            config.gap
+          )}
+          style={breakpoint === "mobile" ? { WebkitOverflowScrolling: "touch", touchAction: "pan-x" } : undefined}
+        >
           {images.slice(0, config.numVisible).map((image, index) => {
             const isActive = activeImage === index;
 
@@ -198,6 +170,7 @@ const HoverExpand_001 = ({
                 onHoverStart={() => {
                   if (isReady) setActiveImage(index);
                 }}
+                onTouchStart={() => setActiveImage(index)}
                 style={{ willChange: "width, height" }}
               >
                 <AnimatePresence>
