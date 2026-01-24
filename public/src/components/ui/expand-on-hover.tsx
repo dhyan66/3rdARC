@@ -52,6 +52,7 @@ const HoverExpand_001 = ({
   const [activeImage, setActiveImage] = useState<number | null>(1);
   const breakpoint = useBreakpoint();
   const [isReady, setIsReady] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   // Preload a couple of images to avoid initial hover jank.
   useEffect(() => {
@@ -80,6 +81,31 @@ const HoverExpand_001 = ({
       isCancelled = true;
     };
   }, [images]);
+
+  const openLightbox = (index: number) => {
+    setActiveImage(index);
+    setIsLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+  };
+
+  const showPrev = () => {
+    if (activeImage === null) return;
+    setActiveImage((prev) => {
+      if (prev === null) return 0;
+      return prev === 0 ? images.length - 1 : prev - 1;
+    });
+  };
+
+  const showNext = () => {
+    if (activeImage === null) return;
+    setActiveImage((prev) => {
+      if (prev === null) return 0;
+      return prev === images.length - 1 ? 0 : prev + 1;
+    });
+  };
 
   // Responsive configuration based on breakpoint
   const config = {
@@ -143,8 +169,8 @@ const HoverExpand_001 = ({
                 animate={{ opacity: 1, translateY: 0, scale: isActive ? 1.03 : 1 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 style={{ height: config.height, willChange: "transform" }}
-                onClick={() => setActiveImage(index)}
-                onTouchStart={() => setActiveImage(index)}
+                onClick={() => openLightbox(index)}
+                onTouchStart={() => openLightbox(index)}
               >
                 <img
                   src={image.src}
@@ -165,6 +191,39 @@ const HoverExpand_001 = ({
             );
           })}
         </div>
+
+        {/* Mobile lightbox */}
+        {isLightboxOpen && activeImage !== null && (
+          <div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            onClick={closeLightbox}
+          >
+            <div className="relative w-full max-w-[92vw]" onClick={(e) => e.stopPropagation()}>
+              <button
+                className="absolute -top-10 right-0 text-white/90 text-sm px-3 py-2"
+                onClick={closeLightbox}
+                aria-label="Close"
+              >
+                Close
+              </button>
+              <img
+                src={images[activeImage].src}
+                alt={images[activeImage].alt}
+                className="w-full max-h-[80vh] object-contain"
+                decoding="async"
+              />
+              <div className="mt-3 flex items-center justify-between text-white/80 text-xs">
+                <button className="px-3 py-2" onClick={showPrev} aria-label="Previous image">
+                  Prev
+                </button>
+                <p className="text-center">{images[activeImage].code}</p>
+                <button className="px-3 py-2" onClick={showNext} aria-label="Next image">
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </motion.div>
     );
   }
