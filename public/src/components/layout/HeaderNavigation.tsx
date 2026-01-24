@@ -24,19 +24,17 @@ export function HeaderNavigation() {
   };
 
   return (
-    <div className="relative w-full">
-      {/* Logo - Positioned absolutely at top-left, outside header */}
+    <div className="relative w-full max-w-[1200px] mx-auto">
+      {/* Logo - keep in normal flow so it never gets clipped */}
       {photographer.logo && (
-        <Link 
+        <Link
           to="/"
-          className="absolute -top-40 left-0 md:left-0 flex-shrink-0 hover:opacity-80 transition-opacity z-50"
+          className="inline-flex flex-col items-start hover:opacity-80 transition-opacity mb-4"
         >
-          {/* Thicker border above logo */}
-          <div className="w-full h-3 border-t-8 border-gray-400 mb-2" />
           <img
             src={photographer.logo}
             alt="3rdArc Productions Logo"
-            className="h-32 w-auto object-contain"
+            className="h-24 sm:h-28 lg:h-32 w-auto object-contain"
           />
         </Link>
       )}

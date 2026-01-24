@@ -19,7 +19,7 @@ export function FilmstripGallery({ images, className = '' }: FilmstripGalleryPro
     );
   }
 
-  return (
-    <HoverExpand_001 images={transformedImages} className={className} />
-  );
+  const mergedClassName = cn("w-full max-w-[1200px] mx-auto", className);
+
+  return <HoverExpand_001 images={transformedImages} className={mergedClassName} />;
 }

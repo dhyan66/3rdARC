@@ -51,6 +51,35 @@ const HoverExpand_001 = ({
 }) => {
   const [activeImage, setActiveImage] = useState<number | null>(1);
   const breakpoint = useBreakpoint();
+  const [isReady, setIsReady] = useState(false);
+
+  // Preload a couple of images to avoid initial hover jank.
+  useEffect(() => {
+    let isCancelled = false;
+    const toPreload = images.slice(0, 2);
+    if (toPreload.length === 0) {
+      setIsReady(true);
+      return;
+    }
+
+    let loaded = 0;
+    toPreload.forEach((img) => {
+      const el = new Image();
+      el.src = img.src;
+      el.onload = () => {
+        loaded += 1;
+        if (!isCancelled && loaded === toPreload.length) setIsReady(true);
+      };
+      el.onerror = () => {
+        loaded += 1;
+        if (!isCancelled && loaded === toPreload.length) setIsReady(true);
+      };
+    });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [images]);
 
   // Responsive configuration based on breakpoint
   const config = {
@@ -96,7 +125,7 @@ const HoverExpand_001 = ({
       <motion.div
         initial={{ opacity: 0, translateY: 20 }}
         animate={{ opacity: 1, translateY: 0 }}
-        transition={{ duration: 0.3, delay: 0.5 }}
+        transition={{ duration: 0.25 }}
         className={cn("relative w-full", config.padding, className)}
       >
         <div className="flex flex-col gap-4 w-full">
@@ -110,7 +139,13 @@ const HoverExpand_001 = ({
               style={{ height: config.height }}
               onClick={() => setActiveImage(index)}
             >
-              <img src={image.src} className="size-full object-cover" alt={image.alt} />
+              <img
+                src={image.src}
+                className="size-full object-cover"
+                alt={image.alt}
+                loading="lazy"
+                decoding="async"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
                 <p className="text-sm text-white/90 font-medium">{image.code}</p>
@@ -127,7 +162,7 @@ const HoverExpand_001 = ({
     <motion.div
       initial={{ opacity: 0, translateY: 20 }}
       animate={{ opacity: 1, translateY: 0 }}
-      transition={{ duration: 0.3, delay: 0.5 }}
+      transition={{ duration: 0.25 }}
       className={cn("relative w-full", config.padding, className)}
     >
       <motion.div
@@ -158,9 +193,12 @@ const HoverExpand_001 = ({
                 className="relative cursor-pointer overflow-hidden rounded-3xl"
                 initial={{ width: initialWidth, height: "20rem" }}
                 animate={{ width, height: config.height }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
                 onClick={() => setActiveImage(index)}
-                onHoverStart={() => setActiveImage(index)}
+                onHoverStart={() => {
+                  if (isReady) setActiveImage(index);
+                }}
+                style={{ willChange: "width, height" }}
               >
                 <AnimatePresence>
                   {isActive && (
@@ -184,7 +222,13 @@ const HoverExpand_001 = ({
                     </motion.div>
                   )}
                 </AnimatePresence>
-                <img src={image.src} className="size-full object-cover" alt={image.alt} />
+                <img
+                  src={image.src}
+                  className="size-full object-cover"
+                  alt={image.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
               </motion.div>
             );
           })}
