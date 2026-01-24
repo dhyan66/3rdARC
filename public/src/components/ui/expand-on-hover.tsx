@@ -272,7 +272,7 @@ const HoverExpand_001 = ({
                 initial={{ width: initialWidth, height: "20rem" }}
                 animate={{ width, height: config.height }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                onClick={() => setActiveImage(index)}
+                onClick={() => openLightbox(index)}
                 onHoverStart={() => {
                   if (isReady) setActiveImage(index);
                 }}
@@ -313,6 +313,38 @@ const HoverExpand_001 = ({
           })}
         </div>
       </motion.div>
+      {/* Lightbox for tablet/desktop */}
+      {isLightboxOpen && activeImage !== null && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-6"
+          onClick={closeLightbox}
+        >
+          <div className="relative w-full max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="absolute -top-12 right-0 text-white/90 text-sm px-3 py-2"
+              onClick={closeLightbox}
+              aria-label="Close"
+            >
+              Close
+            </button>
+            <img
+              src={images[activeImage].src}
+              alt={images[activeImage].alt}
+              className="w-full max-h-[85vh] object-contain"
+              decoding="async"
+            />
+            <div className="mt-3 flex items-center justify-between text-white/80 text-sm">
+              <button className="px-3 py-2" onClick={showPrev} aria-label="Previous image">
+                Prev
+              </button>
+              <p className="text-center">{images[activeImage].code}</p>
+              <button className="px-3 py-2" onClick={showNext} aria-label="Next image">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 };
