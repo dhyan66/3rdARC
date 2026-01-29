@@ -53,10 +53,10 @@ export const StarBackground = () => {
     for (let i = 0; i < numberOfStars; i++) {
       newStars.push({
         id: i,
-        size: Math.random() * 2.5 + 0.8,
+        size: Math.random() * 4 + 2,
         x: Math.random() * 100,
         y: Math.random() * 100,
-        opacity: Math.random() * 0.4 + 0.4,
+        opacity: Math.random() * 0.3 + 0.7,
         animationDuration: Math.random() * 3 + 2,
       });
     }

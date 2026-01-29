@@ -34,7 +34,7 @@ export function Layout({ children, fullPage = false }: LayoutProps) {
         `}</style>
         {/* Content in same grid row as Home - natural page scroll */}
         <div
-          className="flex flex-col gap-6 sm:gap-8 lg:gap-[50px]"
+          className="flex flex-col gap-6 sm:gap-8 lg:gap-[50px] pb-20"
           style={{
             gridColumn: "content-start / content-end",
             gridRow: "2",
@@ -52,7 +52,7 @@ export function Layout({ children, fullPage = false }: LayoutProps) {
   // Grid centered layout (for Home gallery)
   return (
     <div
-      className="grid w-screen min-h-screen overflow-y-auto md:h-screen md:max-h-screen md:overflow-hidden items-start md:items-center layout-home"
+      className="grid w-screen min-h-screen overflow-y-auto items-start layout-home"
       style={{
         gridTemplateRows: "auto 1fr",
         overscrollBehavior: "contain",
@@ -65,19 +65,17 @@ export function Layout({ children, fullPage = false }: LayoutProps) {
         @media (min-width: 768px) {
           .layout-home {
             grid-template-columns: [full-start] 2.5rem [content-start] 1fr [content-end] 2.5rem [full-end];
-            grid-template-rows: 1fr minmax(500px, calc(100vh - 200px)) 1fr;
           }
         }
         @media (min-width: 1024px) {
           .layout-home {
             grid-template-columns: [full-start] 1fr [content-start] min(1200px, 100%) [content-end] 1fr [full-end];
-            grid-template-rows: 1fr min(740px, calc(100vh - 260px)) 1fr;
           }
         }
       `}</style>
       {/* Centered container for header + gallery */}
       <div
-        className="flex flex-col gap-6 sm:gap-8 lg:gap-[50px] pointer-events-auto pt-[80px] sm:pt-[100px] md:pt-0"
+        className="flex flex-col gap-6 sm:gap-8 lg:gap-[50px] pointer-events-auto pt-[80px] sm:pt-[100px] md:pt-0 pb-20 md:pb-24"
         style={{
           gridColumn: "content-start / content-end",
           gridRow: "2",

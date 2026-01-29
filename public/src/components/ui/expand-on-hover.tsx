@@ -271,13 +271,16 @@ const HoverExpand_001 = ({
                 className="relative cursor-pointer overflow-hidden rounded-3xl"
                 initial={{ width: initialWidth, height: "20rem" }}
                 animate={{ width, height: config.height }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
+                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
                 onClick={() => openLightbox(index)}
                 onHoverStart={() => {
                   if (isReady) setActiveImage(index);
                 }}
                 onTouchStart={() => setActiveImage(index)}
-                style={{ willChange: "width, height" }}
+                style={{ 
+                  willChange: "width, height",
+                  transform: "translate3d(0, 0, 0)",
+                }}
               >
                 <AnimatePresence>
                   {isActive && (
@@ -285,6 +288,7 @@ const HoverExpand_001 = ({
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="absolute h-full w-full bg-gradient-to-t from-black/40 to-transparent"
                     />
                   )}
@@ -295,6 +299,7 @@ const HoverExpand_001 = ({
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="absolute flex h-full w-full flex-col items-end justify-end p-4"
                     >
                       <p className="text-left text-xs text-white/50">{image.code}</p>
