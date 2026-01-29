@@ -4,23 +4,94 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jamie Rodriguez - People Photographer & Storyteller</title>
-    <meta name="description" content="Warm, natural photography by Jamie Rodriguez. Capturing authentic moments and genuine connections with people doing what they love." />
+    <meta
+      name="description"
+      content="Warm, natural photography by Jamie Rodriguez. Capturing authentic moments and genuine connections with people doing what they love."
+    />
     <meta name="author" content="Jamie Rodriguez" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #vanta-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+      #root {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
 
-    <meta property="og:title" content="Jamie Rodriguez - People Photographer & Storyteller" />
-    <meta property="og:description" content="Warm, natural photography capturing authentic moments and genuine connections with people doing what they love." />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Hind:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta
+      property="og:title"
+      content="Jamie Rodriguez - People Photographer & Storyteller"
+    />
+    <meta
+      property="og:description"
+      content="Warm, natural photography capturing authentic moments and genuine connections with people doing what they love."
+    />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
   </head>
 
   <body>
+    <div id="vanta-container"></div>
     <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+    <script>
+      function initVanta() {
+        console.log("Attempting to initialize Vanta...");
+        console.log("window.VANTA:", typeof window.VANTA);
+        console.log("window.THREE:", typeof window.THREE);
+        
+        if (window.VANTA && window.THREE) {
+          console.log("Both libraries loaded, initializing FOG effect...");
+          try {
+            window.VANTA.FOG({
+              el: "#vanta-container",
+              mouseControls: true,
+              touchControls: true,
+              gyroControls: false,
+              minHeight: 200.00,
+              minWidth: 200.00,
+              highlightColor: 0xd4af8f,
+              lowlightColor: 0x1a1a1a,
+              speed: 1.5,
+              opacity: 0.9
+            });
+            console.log("Vanta FOG initialized successfully!");
+          } catch(e) {
+            console.error("Error initializing Vanta:", e);
+          }
+        } else {
+          console.warn("Libraries not loaded yet, retrying...");
+          setTimeout(initVanta, 500);
+        }
+      }
+      
+      // Start initialization with a delay
+      setTimeout(initVanta, 200);
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
