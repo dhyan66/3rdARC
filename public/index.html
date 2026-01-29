@@ -22,6 +22,8 @@
         width: 100%;
         height: 100%;
         z-index: 0;
+        opacity: 1;
+        transition: opacity 2s ease-in-out;
       }
       #root {
         position: relative;
@@ -56,6 +58,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
     <script>
+      let vantaEffect = null;
+      const vantaContainer = document.getElementById("vanta-container");
+
       function initVanta() {
         console.log("Attempting to initialize Vanta Topology...");
         console.log("window.VANTA:", typeof window.VANTA);
@@ -63,19 +68,34 @@
         if (window.VANTA) {
           console.log("Vanta loaded, initializing TOPOLOGY effect...");
           try {
-            window.VANTA.TOPOLOGY({
+            // Destroy existing instance if it exists
+            if (vantaEffect) {
+              vantaEffect.destroy();
+            }
+
+            vantaEffect = window.VANTA.TOPOLOGY({
               el: "#vanta-container",
               mouseControls: true,
               touchControls: true,
               gyroControls: false,
               minHeight: 200.0,
               minWidth: 200.0,
-              scale: 1.0,
+              scale: 0.8 + Math.random() * 0.6,
               scaleMobile: 1.0,
+              speed: 0.3 + Math.random() * 1.5,
+              spacing: 10 + Math.random() * 10,
+              maxDistance: 15 + Math.random() * 10,
+              points: Math.floor(8 + Math.random() * 7),
+              showDots: Math.random() > 0.3,
               color: 0xef3a01,
               backgroundColor: 0x0,
             });
             console.log("Vanta TOPOLOGY initialized successfully!");
+            
+            // Fade in
+            if (vantaContainer) {
+              vantaContainer.style.opacity = "1";
+            }
           } catch (e) {
             console.error("Error initializing Vanta:", e);
           }
@@ -85,8 +105,43 @@
         }
       }
 
+      // Rotate pattern with fade transition
+      function rotatePattern() {
+        console.log("Rotating to new pattern...");
+        
+        // Fade out
+        if (vantaContainer) {
+          vantaContainer.style.opacity = "0";
+        }
+        
+        // Wait 2 seconds, then initialize new pattern
+        setTimeout(() => {
+          initVanta();
+        }, 2000);
+      }
+
+      // Check if animation is alive
+      function keepAlive() {
+        if (vantaEffect && vantaEffect.renderer) {
+          // Check if renderer is still active
+          if (!vantaEffect.renderer.domElement.isConnected) {
+            console.log("Vanta disconnected, reinitializing...");
+            initVanta();
+          }
+        } else if (window.VANTA) {
+          console.log("Vanta effect lost, reinitializing...");
+          initVanta();
+        }
+      }
+
       // Start initialization with a delay
       setTimeout(initVanta, 200);
+
+      // Rotate pattern every 60 seconds
+      setInterval(rotatePattern, 60000);
+      
+      // Check if alive every 30 seconds
+      setInterval(keepAlive, 30000);
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
