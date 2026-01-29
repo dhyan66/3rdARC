@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PortfolioProvider } from "@/context/PortfolioContext";
 import { Layout } from "@/layout/Layout";
 import { GallerySkeleton } from "@/gallery/GallerySkeleton";
-import { StarBackground } from "@/background/StarBackground";
+import { VantaFogBackground } from "@/background/VantaFogBackground";
 
 // Lazy load page components for code splitting
 const Home = lazy(() => import("@/pages/Home"));
@@ -31,7 +31,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <StarBackground />
+      <VantaFogBackground />
       <BrowserRouter>
         <PortfolioProvider>
           <Suspense fallback={<LoadingFallback />}>
