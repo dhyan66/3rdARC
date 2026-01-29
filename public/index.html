@@ -91,7 +91,7 @@
               backgroundColor: 0x0,
             });
             console.log("Vanta TOPOLOGY initialized successfully!");
-            
+
             // Fade in
             if (vantaContainer) {
               vantaContainer.style.opacity = "1";
@@ -108,12 +108,12 @@
       // Rotate pattern with fade transition
       function rotatePattern() {
         console.log("Rotating to new pattern...");
-        
+
         // Fade out
         if (vantaContainer) {
           vantaContainer.style.opacity = "0";
         }
-        
+
         // Wait 2 seconds, then initialize new pattern
         setTimeout(() => {
           initVanta();
@@ -139,7 +139,7 @@
 
       // Rotate pattern every 60 seconds
       setInterval(rotatePattern, 60000);
-      
+
       // Check if alive every 30 seconds
       setInterval(keepAlive, 30000);
     </script>
